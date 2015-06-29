@@ -17,7 +17,7 @@ sub t1 {
     my $function = AndreyKostyukevichAnyEvent->new();
     my $result   = $function->get($urls_string);
 
-    if ($result) {
+    if ($result eq "Success") {
         return 1;
     }
     else {
