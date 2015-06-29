@@ -1,0 +1,56 @@
+#!/usr/bin/env perl
+package main;
+use lib '../lib/';
+use Function;
+
+print Function::function(@ARGV);
+
+__END__
+
+=head1 NAME
+
+function - a perl script to receive array of creatives, number of winners, country name (optional) and returning number_of_winners creatives
+
+=head1 SYNOPSIS
+
+    function array_of_creatives number_of_winners country_name (optional)
+            (output goes to console)
+    function array_of_creatives number_of_winners country_name (optional) >outfile
+    function <infile >outfile
+
+=head1 DESCRIPTION
+
+Function reads a input params and return winner's creatives, obeying the following rules:
+1) all winners must have unique advertiser_id
+2) if third argument (country) is provided, then only creatives without country or creatives with same country can be among winners
+3*) function should not give preference to any of equal by price creatives, but should return such creatives equiprobable. 
+
+* With several input creatives equal by price and several function calls with same input, output results may be different.
+
+Array of creatives its JSON objects like this
+{"advertiser_id":"X","price":"Y","country":"Z"},...
+where 
+  advertiser_id - its advertiser identificator
+  price - its positive number
+  country - its abbreviation of the country, string like "ru", "jp" and so on
+
+p.s. in windows OS quotes should be escaped
+
+Number of winners its positive integer number more then 0
+
+Country name its abbreviation of the country, string like "ru", "jp" and so on
+
+=head1 EXAMPLES
+
+  function '[{"advertiser_id":"id_1","price":"10","country":"ru"},{"advertiser_id":"id_2","price":"11"}]' 2 ru
+
+This will produce a JSON array of winners creatives.
+
+=head1 AUTHOR
+
+  Andrey Kostyukevich
+  email: andrey.kostyukevich at gmail.com
+
+=head1 COPYRIGHT
+
+Copyright (c) 2015 by Andrey Kostyukevich
